@@ -11,7 +11,6 @@ import requests
 
 # Define the home view
 def landing(request):
-  
   return render(request, 'landing.html')
 
 def activity(request):
@@ -19,8 +18,12 @@ def activity(request):
   return render(request, 'activity.html', {'activity': activity})
 
 @login_required
-def home(request):
-  return render(request, 'home.html')
+def dates(request):
+  return render(request, 'dates.html')
+
+@login_required
+def create_date(request):
+  pass
 
 def signup(request):
   error_message = ''
@@ -33,7 +36,7 @@ def signup(request):
       user = form.save()
       # This is how we log a user in via code
       login(request, user)
-      return redirect('home')
+      return redirect('dates')
     else:
       error_message = 'Invalid sign up - try again'
   # A bad POST or a GET request, so render signup.html with an empty form
