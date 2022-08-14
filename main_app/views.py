@@ -1,4 +1,6 @@
+from sqlite3 import Date
 from django.shortcuts import render, redirect
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
@@ -22,8 +24,14 @@ def dates(request):
   return render(request, 'dates.html')
 
 @login_required
-def create_date(request):
-  pass
+class DateCreate(CreateView, LoginRequiredMixin):
+  model = Date
+  fields = ['title', 'date', 'notes', 'company', 'activity', 'location']
+
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    return super().form_valid(form)
+
 
 def signup(request):
   error_message = ''
