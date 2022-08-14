@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h3>Not sure what to do?</h3>
+<div>
+    {{ activity }}
+</div>
+<form action="" method="POST">
+    {% csrf_token %}
+    <button type="submit">Click Me</button>
+</form>
+
+{% endblock %}
