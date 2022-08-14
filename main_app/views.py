@@ -11,6 +11,7 @@ import requests
 
 # Define the home view
 def landing(request):
+  
   return render(request, 'landing.html')
 
 def activity(request):
