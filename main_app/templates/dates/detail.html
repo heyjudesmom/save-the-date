@@ -12,8 +12,8 @@
                 <p>location: {{ date.location }}</p>
             </div>
             <div class="card-action">
-                <a href="">Edit</a>
-                <a href="">Delete</a>
+                <a href="{% url 'dates_update' date.id %}">Edit</a>
+                <a href="{% url 'dates_delete' date.id %}">Delete</a>
             </div>
         </div>
     </div>
