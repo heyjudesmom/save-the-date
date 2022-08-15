@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Calender</h1>
+<h1>#####</h1>
+{% for date in dates %}
+  <div class="card">
+  
+      <div class="card-content">
+        <span class="card-title">{{ date.title }}</span>
+        <p>date: {{ date.date }}</p>
+        <p>notes: {{ date.notes }}</p>
+        <p>company: {{ date.company }}</p>
+        <p>activity: {{ date.activity }}</p>
+        <p>location: {{ date.location }}</p>
+      </div>
+    </a>
+  </div>
+{% endfor %}
+
+{% endblock %}

@@ -20,8 +20,10 @@ def activity(request):
   return render(request, 'activity.html', {'activity': activity})
 
 @login_required
-def dates(request):
-  return render(request, 'dates.html')
+def index(request):
+  dates = Date.objects.all()
+  # dates = Date.objects.filter(user=request.user)
+  return render(request, 'dates/index.html', {'dates': dates})
 
 class DateCreate(CreateView, LoginRequiredMixin):
   model = Date
