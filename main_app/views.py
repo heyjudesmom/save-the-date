@@ -23,7 +23,6 @@ def activity(request):
 
 def create_activity(request):
   all_activities = {}
-  print(request.user)
   key = request.GET.get('key')
   if key:
     a = requests.get(f'http://www.boredapi.com/api/activity?key={key}').json()
@@ -32,12 +31,14 @@ def create_activity(request):
       type = a['type'],
       participants = a['participants'],
       price = a['price'],
+      key = a['key'],
     )
     activity_data.save()
     print(activity_data)
     all_activities = Activity.objects.all()
+    print(all_activities)
   # filter(user=request.user)
-  return redirect('activity.html', {'all_activities': all_activities})
+  return redirect('activity', {'all_activities': all_activities})
 
 @login_required
 def dates_index(request):
