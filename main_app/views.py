@@ -1,4 +1,5 @@
-from .models import Date
+from unicodedata import name
+from .models import Activity, Date
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.forms import UserCreationForm
@@ -16,8 +17,22 @@ def landing(request):
   return render(request, 'landing.html')
 
 def activity(request):
-  activity = requests.get('http://www.boredapi.com/api/activity/').json()['activity']
-  return render(request, 'activity.html', {'activity': activity})
+  a = requests.get('http://www.boredapi.com/api/activity/').json()
+  return render(request, 'activity.html', {'a': a})
+
+def create_activity(request):
+  a = requests.get('http://www.boredapi.com/api/activity/').json()
+  for x in a:
+    activity_data = Activity( 
+      name = x['activity'],
+      type = x['type'],
+      participants = x['participants'],
+      price = x['price'],
+    )
+
+    activity_data.save()
+    all_activities = Activity.objects.filter(user=request.user)
+    return redirect(request, 'activity.html', {'all_activities': all_activities})
 
 @login_required
 def dates_index(request):
