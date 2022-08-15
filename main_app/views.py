@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 # Now can decorate any user centric functions with @login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 import requests
+import asyncio
 # Now can apply LoginRequiredMixin to any CBV
 
 # Add the following import
@@ -21,18 +22,22 @@ def activity(request):
   return render(request, 'activity.html', {'a': a})
 
 def create_activity(request):
-  a = requests.get('http://www.boredapi.com/api/activity/').json()
-  for x in a:
+  all_activities = {}
+  print(request.user)
+  key = request.GET.get('key')
+  if key:
+    a = requests.get(f'http://www.boredapi.com/api/activity?key={key}').json()
     activity_data = Activity( 
-      name = x['activity'],
-      type = x['type'],
-      participants = x['participants'],
-      price = x['price'],
+      name = a['activity'],
+      type = a['type'],
+      participants = a['participants'],
+      price = a['price'],
     )
-
     activity_data.save()
-    all_activities = Activity.objects.filter(user=request.user)
-    return redirect(request, 'activity.html', {'all_activities': all_activities})
+    print(activity_data)
+    all_activities = Activity.objects.all()
+  # filter(user=request.user)
+  return redirect('activity.html', {'all_activities': all_activities})
 
 @login_required
 def dates_index(request):
