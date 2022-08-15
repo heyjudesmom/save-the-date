@@ -7,19 +7,18 @@
     <br>
     type : {{ a.type }}
 
-    <form action="" method="GET">
+    <form action="" method="POST">
         {% csrf_token %}
-        <input type="hidden" name="name" value="{{ a.name }}">
-        <input type="hidden" name="type" value="{{ a.type }}">
-        <input type="hidden" name="participants" value="{{ a.participants }}">
-        <input type="hidden" name="price" value="{{ a.price }}">
+         {% for a in all_activities %}
+            <input type="hidden" name="name" value="{{ a.name }}">
+            <input type="hidden" name="type" value="{{ a.type }}">
+            <input type="hidden" name="participants" value="{{ a.participants }}">
+            <input type="hidden" name="price" value="{{ a.price }}">
+        {% endfor %}
         <button type="submit">Save Date Idea!</button>
     </form>
 </div>
-<form action="" method="POST">
-    {% csrf_token %}
-    <button type="submit">Click Me</button>
-</form>
+<a href="{url 'activity' }">click me for random idea</a>
 <div class="col s6">
     {% for a in all_activities %}
     <div class="card">
