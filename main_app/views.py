@@ -20,14 +20,20 @@ def activity(request):
   return render(request, 'activity.html', {'activity': activity})
 
 @login_required
-def index(request):
-  dates = Date.objects.all()
-  # dates = Date.objects.filter(user=request.user)
+def dates_index(request):
+  # dates = Date.objects.all()
+  dates = Date.objects.filter(user=request.user)
   return render(request, 'dates/index.html', {'dates': dates})
+
+@login_required
+def dates_detail(request, date_id):
+  date = Date.objects.get(id=date_id)
+  return render(request, 'dates/detail.html', {'date': date})
+
 
 class DateCreate(CreateView, LoginRequiredMixin):
   model = Date
-  fields = ['title', 'date', 'notes', 'company', 'activity', 'location']
+  fields = ['title', 'date', 'notes', 'company', 'location']
 
   def form_valid(self, form):
     form.instance.user = self.request.user
