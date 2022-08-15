@@ -13,7 +13,7 @@ class Date(models.Model):
     def __str__(self):
         return f'{self.title} ({self.id})'
     def get_absolute_url(self):
-        return reverse('index', kwargs={'date_id': self.id})
+        return reverse('detail', kwargs={'date_id': self.id})
 
 class Activity(models.Model):
     name = models.CharField(max_length=100)
