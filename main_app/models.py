@@ -20,5 +20,9 @@ class Activity(models.Model):
     name = models.CharField(max_length=100)
     type = models.CharField(max_length=100)
     participants = models.PositiveIntegerField()
-    price = models.PositiveIntegerField()
-    # date = models.ForeignKey(Date, on_delete=models.CASCADE)
+    price = models.FloatField()
+    key = models.CharField(max_length=25)
+
+    def __str__(self):
+        return f'{self.name} {self.key}({self.id})'
+   
