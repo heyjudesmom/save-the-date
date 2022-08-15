@@ -20,4 +20,4 @@ class Activity(models.Model):
     type = models.CharField(max_length=100)
     participants = models.PositiveIntegerField()
     price = models.PositiveIntegerField()
-    date = models.ForeignKey(Date, on_delete=models.CASCADE)
+    # date = models.ForeignKey(Date, on_delete=models.CASCADE)
