@@ -1,4 +1,4 @@
-from sqlite3 import Date
+from .models import Date
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.forms import UserCreationForm
@@ -23,7 +23,6 @@ def activity(request):
 def dates(request):
   return render(request, 'dates.html')
 
-@login_required
 class DateCreate(CreateView, LoginRequiredMixin):
   model = Date
   fields = ['title', 'date', 'notes', 'company', 'activity', 'location']
