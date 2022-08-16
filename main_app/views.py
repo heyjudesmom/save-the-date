@@ -38,7 +38,7 @@ def create_activity(request):
     all_activities = Activity.objects.all()
     print(all_activities)
   # filter(user=request.user)
-  return redirect('activity', {'all_activities': all_activities})
+  return redirect('activity')
 
 @login_required
 def dates_index(request):
