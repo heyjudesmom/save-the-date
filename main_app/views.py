@@ -60,6 +60,8 @@ class DateCreate(CreateView, LoginRequiredMixin):
     form.instance.user = self.request.user
     return super().form_valid(form)
 
+  
+
 class DateUpdate(LoginRequiredMixin, UpdateView):
   model = Date
   fields = ['title', 'date', 'notes', 'company', 'location']
