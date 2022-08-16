@@ -1,5 +1,5 @@
 from unicodedata import name
-from .models import Activity, Date
+from .models import Activity, Date, Photo
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.forms import UserCreationForm
@@ -8,7 +8,9 @@ from django.contrib.auth.decorators import login_required
 # Now can decorate any user centric functions with @login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 import requests
-import asyncio
+import os
+import uuid
+import boto3
 # Now can apply LoginRequiredMixin to any CBV
 
 # Add the following import
@@ -55,7 +57,7 @@ def dates_detail(request, date_id):
 class DateCreate(CreateView, LoginRequiredMixin):
   model = Date
   fields = ['title', 'date', 'notes', 'company', 'location']
-
+  
   def form_valid(self, form):
     form.instance.user = self.request.user
     return super().form_valid(form)
@@ -67,6 +69,21 @@ class DateUpdate(LoginRequiredMixin, UpdateView):
 class DateDelete(LoginRequiredMixin, DeleteView):
   model = Date
   success_url= '/dates/'
+
+def add_photo(request, date_id):
+  photo_file = request.FILES.get('photo-file', None)
+  if photo_file:
+    s3 = boto3.client('s3')
+    key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+    try:
+      bucket = os.environ['S3_BUCKET']
+      s3.upload_fileobj(photo_file, bucket, key)
+      url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+      Photo.objects.create(url=url, date_id=date_id)
+    except Exception as e:
+      print('An error occurred uploading file to S3')
+      print(e)
+  return redirect('detail', date_id=date_id)
 
 def signup(request):
   error_message = ''

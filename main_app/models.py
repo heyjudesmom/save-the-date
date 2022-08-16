@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from datetime import date
 from django.urls import reverse
 
+
 class Date(models.Model):
     title = models.CharField(max_length=100)
     date = models.DateField()
@@ -16,6 +17,13 @@ class Date(models.Model):
     def get_absolute_url(self):
         return reverse('detail', kwargs={'date_id': self.id})
 
+class Photo(models.Model):
+    url = models.CharField(max_length=200)
+    date = models.ForeignKey(Date, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Photo for date_id: {self.date_id} @{self.url}"
+
 class Activity(models.Model):
     name = models.CharField(max_length=100)
     type = models.CharField(max_length=100)
@@ -25,4 +33,4 @@ class Activity(models.Model):
 
     def __str__(self):
         return f'{self.name} {self.key}({self.id})'
-   
+
