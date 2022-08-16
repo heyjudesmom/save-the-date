@@ -49,7 +49,10 @@ def dates_index(request):
 @login_required
 def dates_detail(request, date_id):
   date = Date.objects.get(id=date_id)
-  return render(request, 'dates/detail.html', {'date': date})
+  all_activities = Activity.objects.all()
+  id_list = date.activities.all().values_list('id')
+  not_on_date = Activity.objects.exclude(id__in=id_list)
+  return render(request, 'dates/detail.html', {'date': date, 'all_activities': all_activities, 'activities': not_on_date})
 
 
 class DateCreate(CreateView, LoginRequiredMixin):
@@ -83,6 +86,16 @@ def add_photo(request, date_id):
     except Exception as e:
       print('An error occurred uploading file to S3')
       print(e)
+  return redirect('detail', date_id=date_id)
+
+@login_required
+def assoc_activity(request, date_id, activity_id):
+  Date.objects.get(id=date_id).activities.add(activity_id)
+  return redirect('detail', date_id=date_id)
+
+@login_required
+def unassoc_activity(request, date_id, activity_id):
+  Date.objects.get(id=date_id).activities.remove(activity_id)
   return redirect('detail', date_id=date_id)
 
 def signup(request):
