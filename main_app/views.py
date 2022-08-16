@@ -1,3 +1,4 @@
+from operator import attrgetter
 from unicodedata import name
 from .models import Activity, Date, Photo
 from django.shortcuts import render, redirect
@@ -21,7 +22,8 @@ def landing(request):
 
 def activity(request):
   a = requests.get('http://www.boredapi.com/api/activity/').json()
-  return render(request, 'activity.html', {'a': a})
+  all_activities = Activity.objects.all()
+  return render(request, 'activity.html', {'a': a, 'all_activities': all_activities})
 
 def create_activity(request):
   all_activities = {}
@@ -34,12 +36,8 @@ def create_activity(request):
       participants = a['participants'],
       price = a['price'],
       key = a['key'],
-    )
+    )   
     activity_data.save()
-    print(activity_data)
-    all_activities = Activity.objects.all()
-    print(all_activities)
-  # filter(user=request.user)
   return redirect('activity')
 
 @login_required
