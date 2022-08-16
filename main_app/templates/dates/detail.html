@@ -7,9 +7,9 @@
             <div class="card-content">
                 <span class="card-title">{{ date.title }}</span>
                 {% for photo in date.photo_set.all %}
-                    <img class="responsive-img card-panel" src="{{photo.url}}">
+                <img class="responsive-img card-panel" src="{{photo.url}}">
                 {% empty %}
-                    <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+                <div class="card-panel teal-text center-align">No Photos Uploaded</div>
                 {% endfor %}
                 <p>date: {{ date.date }}</p>
                 <p>notes: {{ date.notes }}</p>
@@ -29,22 +29,44 @@
         </form>
     </div>
     <div class="col s6">
+
+        <h3>Implemented Date Ideas</h3>
+        {% if date.activities.count %}
+        {% for x in date.activities.all %}
+        <ul class="collection">
+            <li class="collection-item avatar">
+                    <form action="{% url 'unassoc_activity' date.id x.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-floating btn-large waves-effect waves-light red left"><i class="material-icons">star</i></button>
+                    </form>
+                <span class="title">{{ x.name }}</span>
+                <p>Type: {{ x.type }} <br>
+                Participants: {{ x.participants }} <br>
+                Price: {{ x.price }}</p>
+            </li>
+        </ul>
+        {% endfor %}
+        {% endif %}
         <h3>Saved Date Ideas</h3>
+        {% if not_on_date.count %}
         {% for x in all_activities %}
         <ul class="collection">
             <li class="collection-item avatar">
-            <i class="material-icons circle green">date_range</i>
-            <span class="title">{{ x.name }}</span>
+                <i class="material-icons circle green">date_range</i>
+                <span class="title">{{ x.name }}</span>
                 <p>Type: {{ x.type }}</p>
                 <p>Participants: {{ x.participants }}</p>
                 <p>Price: {{ x.price }}</p>
                 <form action="{% url 'assoc_activity' date.id x.id %}" method="POST">
                     {% csrf_token %}
+
                     <button type="submit"><i class="material-icons">star_border</i></button>
                 </form>
             </li>
         </ul>
         {% endfor %}
-</div>
+        {% endif %}
+
+    </div>
 </div>
 {% endblock %}

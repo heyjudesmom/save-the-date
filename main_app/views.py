@@ -52,7 +52,7 @@ def dates_detail(request, date_id):
   all_activities = Activity.objects.all()
   id_list = date.activities.all().values_list('id')
   not_on_date = Activity.objects.exclude(id__in=id_list)
-  return render(request, 'dates/detail.html', {'date': date, 'all_activities': all_activities, 'activities': not_on_date})
+  return render(request, 'dates/detail.html', {'date': date, 'all_activities': all_activities, 'not_on_date': not_on_date})
 
 
 class DateCreate(CreateView, LoginRequiredMixin):
