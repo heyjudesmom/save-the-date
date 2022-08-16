@@ -9,11 +9,11 @@
 
     <form action="{% url 'create_activity' %}" method="GET">
         {% csrf_token %}
-            <input name="key" value="{{ a.key }}">
-            <input type="hidden" name="name" value="{{ a.name }}">
-            <input type="hidden" name="type" value="{{ a.type }}">
-            <input type="hidden" name="participants" value="{{ a.participants }}">
-            <input type="hidden" name="price" value="{{ a.price }}">
+        <input name="key" value="{{ a.key }}">
+        <input type="hidden" name="name" value="{{ a.name }}">
+        <input type="hidden" name="type" value="{{ a.type }}">
+        <input type="hidden" name="participants" value="{{ a.participants }}">
+        <input type="hidden" name="price" value="{{ a.price }}">
         <button type="submit">Save Date Idea!</button>
     </form>
 </div>
@@ -21,18 +21,17 @@
     {% csrf_token %}
     <button type="submit">DATE IDEA</button>
 </form>
-<!-- <a href="{url 'activity' }">click me for random idea</a> -->
 <div class="col s6">
-    <!-- {% for a in all_activities %}
+    {% for x in all_activities %}
     <div class="card">
         <div class="card-content">
-            <span class="card-title">{{ a.name }}</span>
-            <p>Type: {{ a.type }}</p>
-            <p>Participants: {{ a.participants }}</p>
-            <p>Price: {{ a.price }}</p>
+            <span class="card-title">{{ x.name }}</span>
+            <p>Type: {{ x.type }}</p>
+            <p>Participants: {{ x.participants }}</p>
+            <p>Price: {{ x.price }}</p>
         </div>
     </div>
-    {% endfor %} -->
+    {% endfor %}
 </div>
 
 {% endblock %}

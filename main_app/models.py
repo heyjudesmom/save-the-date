@@ -33,4 +33,5 @@ class Activity(models.Model):
 
     def __str__(self):
         return f'{self.name} {self.key}({self.id})'
-
+    class Meta:
+        ordering = ['-id']
