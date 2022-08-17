@@ -1,4 +1,3 @@
-from operator import attrgetter
 from unicodedata import name
 from .models import Activity, Date, Photo
 from django.shortcuts import render, redirect
@@ -20,10 +19,6 @@ import boto3
 def landing(request):
   return render(request, 'landing.html')
 
-def activity(request):
-  a = requests.get('http://www.boredapi.com/api/activity/').json()
-  all_activities = Activity.objects.all()
-  return render(request, 'activity.html', {'a': a, 'all_activities': all_activities})
 
 def create_activity(request):
   all_activities = {}
@@ -97,6 +92,16 @@ def assoc_activity(request, date_id, activity_id):
 def unassoc_activity(request, date_id, activity_id):
   Date.objects.get(id=date_id).activities.remove(activity_id)
   return redirect('detail', date_id=date_id)
+
+def activity(request):
+  a = requests.get('http://www.boredapi.com/api/activity/').json()
+  all_activities = Activity.objects.all()
+  return render(request, 'activity.html', {'a': a, 'all_activities': all_activities})
+
+class ActivityDelete(DeleteView):
+  model = Activity
+  success_url = '/activity/'
+
 
 def signup(request):
   error_message = ''

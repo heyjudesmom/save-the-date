@@ -30,6 +30,7 @@
             <p>Participants: {{ x.participants }}</p>
             <p>Price: {{ x.price }}</p>
         </div>
+        <a href="{% url 'activities_delete' x.id %}">Delete</a>
     </div>
     {% endfor %}
 </div>
