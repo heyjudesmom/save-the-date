@@ -34,30 +34,23 @@
         {% if date.activities.count %}
         {% for x in date.activities.all %}
         <ul class="collection">
-            <li class="collection-item avatar">
-                <!-- pull-s2 -->
-                <!-- <div class="col 1 right"> -->
-                <i class="material-icons circle green"> star
-                    <form action="{% url 'unassoc_activity' date.id x.id %}" method="POST">
-                        {% csrf_token %}
-                        <button type="submit" class="btn-floating btn-large waves-effect waves-light red "></button>
-                    </form>
-                </i>
-                <!-- </div> -->
-                <!-- push-s1 -->
-                <!-- <div class="col 3 left"> -->
+            <li class="collection-item avatar">  
+                <!-- <i class="material-icons circle green"> star </i> -->
+                <form action="{% url 'unassoc_activity' date.id x.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="waves-effect waves-light material-icons circle green"> star</button>
+                </form>
                 <span class="title">{{ x.name }}</span>
                 <p>Type: {{ x.type }} <br>
                 Participants: {{ x.participants }} <br>
                 Price: {{ x.price }}</p>
-                <!-- </div> -->
             </li>
         </ul>
         {% endfor %}
         {% endif %}
         <h3>Saved Date Ideas</h3>
         {% if not_on_date.count %}
-        {% for x in all_activities %}
+        {% for x in not_on_date %}
         <ul class="collection">
             <li class="collection-item avatar">
                 <i class="material-icons circle ">date_range</i>
@@ -67,7 +60,6 @@
                 <p>Price: {{ x.price }}</p>
                 <form action="{% url 'assoc_activity' date.id x.id %}" method="POST">
                     {% csrf_token %}
-
                     <button type="submit"><i class="material-icons">star_border</i></button>
                 </form>
             </li>

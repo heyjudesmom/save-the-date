@@ -22,7 +22,6 @@ def landing(request):
 
 
 def create_activity(request):
-  all_activities = {}
   key = request.GET.get('key')
   if key:
     a = requests.get(f'http://www.boredapi.com/api/activity?key={key}').json()
@@ -32,8 +31,11 @@ def create_activity(request):
       participants = a['participants'],
       price = a['price'],
       key = a['key'],
+      user = request.user
     )   
     activity_data.save()
+    # data.user_id = user_id
+    # data.save()
   return redirect('activity')
 
 @login_required
@@ -115,7 +117,7 @@ def unassoc_activity(request, date_id, activity_id):
 
 def activity(request):
   a = requests.get('http://www.boredapi.com/api/activity/').json()
-  all_activities = Activity.objects.all()
+  all_activities = Activity.objects.filter(user=request.user)
   return render(request, 'activity.html', {'a': a, 'all_activities': all_activities})
 
 class ActivityDelete(DeleteView):
@@ -134,7 +136,7 @@ def signup(request):
       user = form.save()
       # This is how we log a user in via code
       login(request, user)
-      return redirect('dates')
+      return redirect('index')
     else:
       error_message = 'Invalid sign up - try again'
   # A bad POST or a GET request, so render signup.html with an empty form
