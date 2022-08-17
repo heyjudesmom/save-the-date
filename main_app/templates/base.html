@@ -21,10 +21,11 @@
         </ul>
         <ul class="right">
           {% if user.is_authenticated %}
-            <li><a href="{% url 'index' %}">&#128197;</a></li>
+            <li> Welcome {{ user }} </li>
+            <li><a href="{% url 'index' %}"><i class="material-icons">date_range</i></a></li>
             <li><a href="{% url 'create_date' %}">Log a Date</a></li>
             <li><a href="{% url 'activity' %}">Date Ideas</a></li>
-            <li><a href="{% url 'logout' %}">Log Out</a></li>
+            <li><a href="{% url 'logout' %}"><i class="material-icons">exit_to_app</i></a></li>
           {% else %}
             <li><a href="{% url 'signup' %}">Sign Up</a></li>
             <li><a href="{% url 'login' %}">Log In</a></li>
@@ -37,7 +38,7 @@
     {% block content %}
     {% endblock %}
   </main>
-  <footer class="page-footer">
+  <footer class="page-footer #9ccc65 light-green lighten-2">
     <div class="right">All Rights Reserved, &copy; 2022 Monty Pythons &nbsp;</div>
   </footer>
 </body>
