@@ -20,7 +20,7 @@ import datetime
 def landing(request):
   return render(request, 'landing.html')
 
-
+@login_required
 def create_activity(request):
   key = request.GET.get('key')
   if key:
@@ -43,7 +43,7 @@ def dates_index(request):
   months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   cur_year = d.year
   sel_date = request.GET.get('date')
-  user = request.user
+  # user = request.user
   if sel_date:
     sel_month = sel_date[5:7]
     sel_year = sel_date[0:4]
@@ -62,7 +62,7 @@ def dates_index(request):
   'months': months, 
   'sel_month': sel_month, 
   'sel_year': sel_year, 
-  'user': user})
+  })
 
 @login_required
 def dates_detail(request, date_id):
@@ -70,7 +70,7 @@ def dates_detail(request, date_id):
   date = Date.objects.get(id=date_id)
   id_list = date.activities.all().values_list('id')
   not_on_date = Activity.objects.exclude(id__in=id_list).filter(user_id=user_id)
-  return render(request, 'dates/detail.html', {'date': date, 'not_on_date': not_on_date, 'user': user_id})
+  return render(request, 'dates/detail.html', {'date': date, 'not_on_date': not_on_date})
 
 
 class DateCreate(CreateView, LoginRequiredMixin):
@@ -81,8 +81,6 @@ class DateCreate(CreateView, LoginRequiredMixin):
     form.instance.user = self.request.user
     return super().form_valid(form)
 
-  
-
 class DateUpdate(LoginRequiredMixin, UpdateView):
   model = Date
   fields = ['title', 'date', 'notes', 'company', 'location']
@@ -91,6 +89,7 @@ class DateDelete(LoginRequiredMixin, DeleteView):
   model = Date
   success_url= '/dates/'
 
+@login_required
 def add_photo(request, date_id):
   photo_file = request.FILES.get('photo-file', None)
   if photo_file:
