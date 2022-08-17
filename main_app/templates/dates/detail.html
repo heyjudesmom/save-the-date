@@ -44,7 +44,8 @@
                 <p>Type: {{ x.type }} <br>
                 Participants: {{ x.participants }} <br>
                 Price: {{ x.price }}<br>
-                User: {{ x.user }}</p>
+                <!-- User: {{ x.user }} -->
+            </p>
             </li>
         </ul>
         {% endfor %}
@@ -59,7 +60,7 @@
                 <p>Type: {{ x.type }}</p>
                 <p>Participants: {{ x.participants }}</p>
                 <p>Price: {{ x.price }}</p>
-                <p>User: {{ x.user }}</p>
+                <!-- <p>User: {{ x.user }}</p> -->
                 <form action="{% url 'assoc_activity' date.id x.id %}" method="POST">
                     {% csrf_token %}
                     <button type="submit"><i class="material-icons">star_border</i></button>
