@@ -11,6 +11,7 @@ import requests
 import os
 import uuid
 import boto3
+import datetime
 # Now can apply LoginRequiredMixin to any CBV
 
 # Add the following import
@@ -39,7 +40,13 @@ def create_activity(request):
 def dates_index(request):
   # dates = Date.objects.all()
   dates = Date.objects.filter(user=request.user)
-  return render(request, 'dates/index.html', {'dates': dates})
+  d = datetime.datetime.now()
+  months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+  this_month = months[d.month - 1]
+  year = d.year
+  cur_month = f'{this_month} {year}'
+  only_this_month_dates = dates.filter(date__month=d.month)
+  return render(request, 'dates/index.html', {'dates': dates, 'cur_month': cur_month, 'only_this_month_dates': only_this_month_dates})
 
 @login_required
 def dates_detail(request, date_id):
