@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Calender</h1>
-{% for date in dates %}
+<h1>{{ cur_month }}</h1>
+
+
+{% for date in only_this_month_dates %}
 <div class="row">
     <div class="col s12 m7">
         <div class="card">
