@@ -29,6 +29,9 @@ class Date(models.Model):
     def get_absolute_url(self):
         return reverse('detail', kwargs={'date_id': self.id})
 
+    class Meta:
+        ordering = ['date']
+
 class Photo(models.Model):
     url = models.CharField(max_length=200)
     date = models.ForeignKey(Date, on_delete=models.CASCADE)

@@ -12,6 +12,7 @@ urlpatterns = [
     path('dates/<int:date_id>/assoc_activity/<int:activity_id>', views.assoc_activity, name='assoc_activity'),
     path('dates/<int:date_id>/unassoc_activity/<int:activity_id>', views.unassoc_activity, name='unassoc_activity'),
     path('activity/', views.activity, name='activity'),
+    path('activity/<int:pk>/delete', views.ActivityDelete.as_view(), name='activities_delete'),
     path('activity/create/', views.create_activity, name='create_activity'),
     path('accounts/signup/', views.signup, name='signup'),
 
