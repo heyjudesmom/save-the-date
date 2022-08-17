@@ -38,15 +38,38 @@ def create_activity(request):
 
 @login_required
 def dates_index(request):
-  # dates = Date.objects.all()
-  dates = Date.objects.filter(user=request.user)
   d = datetime.datetime.now()
   months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   this_month = months[d.month - 1]
-  year = d.year
-  cur_month = f'{this_month} {year}'
-  only_this_month_dates = dates.filter(date__month=d.month)
-  return render(request, 'dates/index.html', {'dates': dates, 'cur_month': cur_month, 'only_this_month_dates': only_this_month_dates})
+  cur_year = d.year
+  cur_month = f'{this_month} {cur_year}'
+  sel_date = request.GET.get('date')
+  sel_month = sel_date[5:7]
+  sel_year = sel_date[0:4]
+  print(sel_month)
+  print(sel_year)
+  if sel_date:
+    this_month = months[int(sel_month) - 1]
+    cur_month = f'{this_month} {cur_year}'
+    sel_month = sel_date[5:7]
+    sel_year = sel_date[0:4]
+    dates = Date.objects.filter(user=request.user, date__month=sel_month, date__year=sel_year)
+  else:
+    sel_month = ''
+    sel_year = ''
+    dates = Date.objects.filter(user=request.user)
+    # dates = Date.objects.filter(user=request.user)
+  return render(request, 'dates/index.html', 
+  {'dates': dates, 
+  'cur_month': cur_month, 
+  'months': months, 
+  'sel_month': sel_month, 
+  'sel_year': sel_year})
+
+@login_required
+def choose_index(request):
+
+  return redirect('index')
 
 @login_required
 def dates_detail(request, date_id):
