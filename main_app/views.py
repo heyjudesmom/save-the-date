@@ -32,10 +32,9 @@ def create_activity(request):
       price = a['price'],
       key = a['key'],
       user = request.user
-    )   
+    )
     activity_data.save()
-    # data.user_id = user_id
-    # data.save()
+    print(activity_data.user)
   return redirect('activity')
 
 @login_required
@@ -44,6 +43,7 @@ def dates_index(request):
   months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   cur_year = d.year
   sel_date = request.GET.get('date')
+  user = request.user
   if sel_date:
     sel_month = sel_date[5:7]
     sel_year = sel_date[0:4]
@@ -61,15 +61,16 @@ def dates_index(request):
   'cur_month': cur_month, 
   'months': months, 
   'sel_month': sel_month, 
-  'sel_year': sel_year})
+  'sel_year': sel_year, 
+  'user': user})
 
 @login_required
 def dates_detail(request, date_id):
+  user_id = request.user.id
   date = Date.objects.get(id=date_id)
-  all_activities = Activity.objects.all()
   id_list = date.activities.all().values_list('id')
-  not_on_date = Activity.objects.exclude(id__in=id_list)
-  return render(request, 'dates/detail.html', {'date': date, 'all_activities': all_activities, 'not_on_date': not_on_date})
+  not_on_date = Activity.objects.exclude(id__in=id_list).filter(user_id=user_id)
+  return render(request, 'dates/detail.html', {'date': date, 'not_on_date': not_on_date, 'user': user_id})
 
 
 class DateCreate(CreateView, LoginRequiredMixin):
