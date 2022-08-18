@@ -2,11 +2,13 @@
 {% block content %}
 
 <div class="row center-align">
-    <div class="col s12 center"><h4>Not sure what to do?</h4></div>
-    <div class="col s8 offset-s2 center #9ccc65 light-green lighten-2 ">
-        <div class="card">
-            <div class ="card-content z-depth-4">
-                <h3>{{ a.activity }}</h3> 
+    <div class="center">
+        <h4>Not sure what to do?</h4>
+    </div>
+    <div class="col s10 offset-s1 center #9ccc65 light-green lighten-2 ">
+        <div class="card col s10 push-s1">
+            <div class="card-content z-depth-4">
+                <h3>{{ a.activity }}</h3>
                 <h4> type : {{ a.type }}</h4>
             </div>
         </div>
@@ -23,32 +25,31 @@
             <input type="hidden" name="participants" value="{{ a.participants }}">
             <input type="hidden" name="price" value="{{ a.price }}">
             <input type="hidden" name="user" value="{{ a.user }}">
-            <button type="submit" class="waves-effect waves-light btn-large pulse #fb8c00 orange darken-1">Save Date Idea!</button>
+            <button type="submit" class="waves-effect waves-light btn-large #fb8c00 orange darken-1">Save Date
+                Idea!</button>
         </form>
     </div>
     <div class="col s6 pull-s1">
         <form action="{% url 'activity' %}" method="POST">
             {% csrf_token %}
-            <button type="submit" class="waves-effect waves-light btn-large pulse #9ccc65 light-green lighten-2">DATE IDEA</button>
+            <button type="submit" class="waves-effect waves-light btn-large pulse #9ccc65 light-green lighten-2">DATE
+                IDEA</button>
         </form>
     </div>
 </div>
 <br>
-<!-- <div class="col s12"> -->
 <div class="row">
     {% for x in all_activities %}
     <div class="col s4">
-        <div class="card" >
-            <div id="calendar-card" class="card hoverable medium">
-                <div class="card-content">
-                    <span class="card-title">{{ x.name }}</span>
-                    <p>Type: {{ x.type }}</p>
-                    <p>Participants: {{ x.participants }}</p>
-                    <br>
-                </div>
-                <div class="card-action">
-                    <a href="{% url 'activities_delete' x.id %}"><i class="medium material-icons circle red">close</i></a>
-                </div>
+        <div id="idea-card " class="card hoverable small" style="margin: 10px;">
+            <div class="card-content">
+                <span class="card-title">{{ x.name }}</span>
+                <p>Type: {{ x.type }}</p>
+                <p>Participants: {{ x.participants }}</p>
+                <br>
+            </div>
+            <div class="card-action">
+                <a href="{% url 'activities_delete' x.id %}"><i class="medium material-icons ">close</i></a>
             </div>
         </div>
     </div>
