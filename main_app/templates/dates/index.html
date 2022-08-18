@@ -33,7 +33,11 @@
       </div>
     </div>
     {% endif%}
-  </div>
+</div>
+{% empty %}
+<h3>No Dates Yet</h3>
+<h3 style="color: #EA8D5C">Get Started <i class="material-icons">arrow_forward</i>&nbsp;<a href="{% url 'create_date' %}" class="btn-floating btn-large waves-effect waves-light #9ccc65 light-green"><i class="material-icons">add</i></a></h3>
+
   {% endfor %}
 
 </div>
