@@ -21,7 +21,7 @@
         </ul>
         <ul class="right">
           {% if user.is_authenticated %}
-            <li> Welcome {{ user.username }} </li>
+            <li> Welcome {{ user }} </li>
             <li><a href="{% url 'index' %}"><i class="material-icons">date_range</i></a></li>
             <li><a href="{% url 'create_date' %}">Log a Date</a></li>
             <li><a href="{% url 'activity' %}">Date Ideas</a></li>
