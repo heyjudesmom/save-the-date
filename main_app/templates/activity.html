@@ -38,14 +38,18 @@
 <div class="row">
     {% for x in all_activities %}
     <div class="col s4">
-        <div class="card" style="display:inline-block">
-            <div class="card-content">
-                <span class="card-title">{{ x.name }}</span>
-                <p>Type: {{ x.type }}</p>
-                <p>Participants: {{ x.participants }}</p>
-            
+        <div class="card" >
+            <div id="calendar-card" class="card hoverable medium">
+                <div class="card-content">
+                    <span class="card-title">{{ x.name }}</span>
+                    <p>Type: {{ x.type }}</p>
+                    <p>Participants: {{ x.participants }}</p>
+                    <br>
+                </div>
+                <div class="card-action">
+                    <a href="{% url 'activities_delete' x.id %}"><i class="medium material-icons circle red">close</i></a>
+                </div>
             </div>
-            <a href="{% url 'activities_delete' x.id %}" class="waves-effect waves-light material-icons circle red">close</a>
         </div>
     </div>
     {% endfor %}
