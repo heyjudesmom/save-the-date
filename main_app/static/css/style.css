@@ -30,3 +30,9 @@ footer.page-footer {
 img.responsive-img {
   min-width: fit-content;
 }
+
+#idea-card{
+  height: 10vh;
+  gap: 10px;
+  width: auto;
+}
