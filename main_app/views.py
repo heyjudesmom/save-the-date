@@ -48,7 +48,7 @@ def dates_index(request):
     sel_month = sel_date[5:7]
     sel_year = sel_date[0:4]
     this_month = months[int(sel_month) - 1]
-    cur_month = f'{this_month} {cur_year}'
+    cur_month = f'{this_month} {sel_year}'
     dates = Date.objects.filter(user=request.user, date__month=sel_month, date__year=sel_year)
   else:
     this_month = months[d.month - 1]
