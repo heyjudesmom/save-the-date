@@ -1,37 +1,52 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h3>Not sure what to do?</h3>
-<div>
-    {{ a.activity }}
-    <br>
-    type : {{ a.type }}
-
-    <form action="{% url 'create_activity' %}" method="GET">
-        {% csrf_token %}
-        <input name="key" value="{{ a.key }}">
-        <input type="hidden" name="name" value="{{ a.name }}">
-        <input type="hidden" name="type" value="{{ a.type }}">
-        <input type="hidden" name="participants" value="{{ a.participants }}">
-        <input type="hidden" name="price" value="{{ a.price }}">
-        <input type="hidden" name="user" value="{{ a.user }}">
-        <button type="submit">Save Date Idea!</button>
-    </form>
-</div>
-<form action="{% url 'activity' %}" method="POST">
-    {% csrf_token %}
-    <button type="submit">DATE IDEA</button>
-</form>
-<div class="col s6">
-    {% for x in all_activities %}
-    <div class="card">
-        <div class="card-content">
-            <span class="card-title">{{ x.name }}</span>
-            <p>Type: {{ x.type }}</p>
-            <p>Participants: {{ x.participants }}</p>
-            <p>Price: {{ x.price }}</p>
+<div class="row center-align">
+    <div class="col s12 center"><h4>Not sure what to do?</h4></div>
+    <div class="col s8 offset-s2 center #9ccc65 light-green lighten-2 ">
+        <div class="card">
+            <div class ="card-content z-depth-4">
+                <h3>{{ a.activity }}</h3> 
+                <h4> type : {{ a.type }}</h4>
+            </div>
         </div>
-        <a href="{% url 'activities_delete' x.id %}">Delete</a>
+    </div>
+</div>
+
+<div class="row center-align">
+    <div class="col s6 push-s1 ">
+        <form action="{% url 'create_activity' %}" method="GET">
+            {% csrf_token %}
+            <input type="hidden" name="key" value="{{ a.key }}">
+            <input type="hidden" name="name" value="{{ a.name }}">
+            <input type="hidden" name="type" value="{{ a.type }}">
+            <input type="hidden" name="participants" value="{{ a.participants }}">
+            <input type="hidden" name="price" value="{{ a.price }}">
+            <input type="hidden" name="user" value="{{ a.user }}">
+            <button type="submit" class="waves-effect waves-light btn-large pulse #fb8c00 orange darken-1">Save Date Idea!</button>
+        </form>
+    </div>
+    <div class="col s6 pull-s1">
+        <form action="{% url 'activity' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="waves-effect waves-light btn-large pulse #9ccc65 light-green lighten-2">DATE IDEA</button>
+        </form>
+    </div>
+</div>
+<br>
+<!-- <div class="col s12"> -->
+<div class="row">
+    {% for x in all_activities %}
+    <div class="col s4">
+        <div class="card" style="display:inline-block">
+            <div class="card-content">
+                <span class="card-title">{{ x.name }}</span>
+                <p>Type: {{ x.type }}</p>
+                <p>Participants: {{ x.participants }}</p>
+            
+            </div>
+            <a href="{% url 'activities_delete' x.id %}" class="waves-effect waves-light material-icons circle red">close</a>
+        </div>
     </div>
     {% endfor %}
 </div>
