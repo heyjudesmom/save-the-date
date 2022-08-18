@@ -26,3 +26,7 @@ footer.page-footer {
 .row .col {
   padding: 0;
 }
+
+img.responsive-img {
+  min-width: fit-content;
+}
