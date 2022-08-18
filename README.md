@@ -9,6 +9,8 @@
 
 ![screenshot]()
 
+![screenshot]()
+
 # Technologies Used
 
 Python, JavaScript, HTML, CSS, DTL, PostgreSQL, AWS, Lucid, Trello, Figma, Materialize, & Django Framework. 
