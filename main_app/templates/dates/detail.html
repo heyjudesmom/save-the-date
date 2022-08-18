@@ -23,7 +23,9 @@
         </div>
         <form action="{% url 'add_photo' date.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
             {% csrf_token %}
-            <input type="file" name="photo-file" class="waves-effect waves-light btn #ff8a65 deep-orange lighten-2">
+            <div>
+            <input type="file" name="photo-file">
+            </div>
             <br>
             <br>
             <button type="submit" class="btn"><i class="material-icons right">cloud</i>Upload Photo</button>
