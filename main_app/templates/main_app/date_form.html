@@ -5,6 +5,7 @@
     <h1>Edit <span class="teal-text">{{ object.title }}</span></h1>
 {% else %}
 <h1 style="color: #EA8D5C">Log a Date!</h1>
+
 {% endif %}
 
 <form action="" method="POST">
@@ -14,6 +15,7 @@
     </table> <br>
     <input type="submit" value="Submit!" class="btn #fb8c00 orange ">
 </form>
+
 <script>
     const dateEl = document.getElementById('id_date');
     M.Datepicker.init(dateEl, {
