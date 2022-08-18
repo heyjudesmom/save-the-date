@@ -1,16 +1,28 @@
-
 body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-  }
-  
-  main {
-    flex: 1 0 auto;
-  }
-  
-  footer.page-footer {
-    padding-top: 0;
-    text-align: right;
-  }
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
 
+main {
+  flex: 1 0 auto;
+}
+
+footer.page-footer {
+  padding-top: 0;
+  text-align: right;
+}
+
+#calendar-card {
+  height: 20vh;
+  width: auto;
+}
+
+.card-content {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.row .col {
+  padding: 0;
+}
