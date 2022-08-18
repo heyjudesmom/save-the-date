@@ -4,11 +4,8 @@
 {% if object%}
     <h1>Edit <span class="teal-text">{{ object.title }}</span></h1>
 {% else %}
-<<<<<<< HEAD
 <h1 style="color: #EA8D5C">Log a Date!</h1>
-=======
-<h1>Log Date!</h1>
->>>>>>> main
+
 {% endif %}
 
 <form action="" method="POST">
@@ -16,14 +13,9 @@
     <table>
         {{ form.as_table }}
     </table> <br>
-<<<<<<< HEAD
     <input type="submit" value="Submit!" class="btn #fb8c00 orange ">
-
-</form><br>
-=======
-    <input type="submit" value="Submit!" class="btn">
 </form>
->>>>>>> main
+
 <script>
     const dateEl = document.getElementById('id_date');
     M.Datepicker.init(dateEl, {
@@ -34,8 +26,7 @@
     });
 
     const noteEl = document.getElementById('id_notes').setAttribute('placeholder', 'Describe what you did on your date!')
-
-  </script>
+</script>
 
 
 {% endblock %}
