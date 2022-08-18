@@ -23,11 +23,11 @@ footer.page-footer {
   word-wrap: break-word;
 }
 
-.row .col {
+#row-col {
   padding: 0;
 }
 
-img.responsive-img {
+#calendar-img{
   min-width: fit-content;
 }
 
