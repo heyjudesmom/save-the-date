@@ -13,11 +13,11 @@
 <div id="calendar">
   {% for date in dates %}
   <div class="row">
-    <div class="col s4 m3 l2">
+    <div id="row-col" class="col s4 m3 l2">
       <div id="calendar-card" class="card hoverable medium">
         {% if date.photo_set.count %}
         <div class="card-image">
-          <img class="responsive-img" src="{{ date.photo_set.first.url }}" alt="photo of {{ date.title }}">
+          <img id="calendar-img" class="responsive-img" src="{{ date.photo_set.first.url }}" alt="photo of {{ date.title }}">
         </div>
         <div class="card-action">
           <a href="{% url 'detail' date.id %}" style="color: #EA8D5C">{{ date.date }}</a>
