@@ -28,6 +28,7 @@ footer.page-footer {
 }
 
 #calendar-img{
+  max-height: 14vh;
   min-width: fit-content;
 }
 
